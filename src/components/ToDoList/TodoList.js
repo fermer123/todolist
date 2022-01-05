@@ -1,8 +1,9 @@
 export const TodoList = (props) => {
-  function deleteTodo() {
-    console.log('delete');
-  }
-  console.log(props.todo);
+  const deleteTodo = (id) => {
+    let newTodo = [...props.todo].filter((item) => item.id != id);
+    props.setTodo(newTodo);
+  };
+  console.log(props);
   return (
     <div>
       {props.todo.map((item) => (
