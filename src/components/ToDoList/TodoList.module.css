@@ -1,0 +1,23 @@
+.btn {
+  margin-left: 10px;
+  display: flex;
+}
+
+.listItems {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 24px;
+  border-top: 24px;
+  padding: 6px; /*устанавливает внутренние отступы/поля со всех сторон элемента */
+}
+.listItems:hover {
+  /*срабатывает, когда пользователь наводит на элемент мышьюсрабатывает, когда пользователь наводит на элемент мышью */
+  background-color: #009999;
+  border-radius: 6px;
+}
+
+.close {
+  color: gray;
+  text-decoration: line-through;
+}
