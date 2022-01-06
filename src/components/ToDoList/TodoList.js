@@ -32,7 +32,8 @@ export const TodoList = (props) => {
 
   const editTodo = (id, title) => {
     setEdit(id);
-    setEdit(title);
+    setValue(title);
+    console.log(edit);
   };
 
   return (
@@ -41,7 +42,7 @@ export const TodoList = (props) => {
         <div key={item.id}>
           {edit === item.id ? (
             <div>
-              <input onChange={(e) => setValue(e.target.value)} value={value} />
+              <input value={value} onChange={(e) => setValue(e.target.value)} />
             </div>
           ) : (
             <div>{item.title}</div>
