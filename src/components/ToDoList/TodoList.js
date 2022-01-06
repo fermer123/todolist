@@ -2,13 +2,14 @@ import { useState } from 'react';
 
 export const TodoList = (props) => {
   const [edit, setEdit] = useState(null);
+  const [value, setValue] = useState('');
 
   const deleteTodo = (id) => {
     let newTodo = [...props.todo].filter((item) => item.id !== id);
     props.setTodo(newTodo);
   };
 
-  let statusTodo = (id) => {
+  const statusTodo = (id) => {
     let newTodo = [...props.todo].filter((item) => {
       if (item.id === id) {
         item.status = !item.status;
@@ -18,8 +19,20 @@ export const TodoList = (props) => {
     props.setTodo(newTodo);
   };
 
-  const editTodo = (id) => {
+  const saveTodo = (id) => {
+    let newTodo = [...props.todo].map((item) => {
+      if (item.id === id) {
+        item.title = value;
+      }
+      return item;
+    });
+    props.setTodo(newTodo);
+    setEdit(null);
+  };
+
+  const editTodo = (id, title) => {
     setEdit(id);
+    setEdit(title);
   };
 
   return (
@@ -28,16 +41,24 @@ export const TodoList = (props) => {
         <div key={item.id}>
           {edit === item.id ? (
             <div>
-              <input />
-              <button>Save</button>
+              <input onChange={(e) => setValue(e.target.value)} value={value} />
             </div>
           ) : (
             <div>{item.title}</div>
           )}
-          <div>{item.title}</div>
-          <button onClick={() => deleteTodo(item.id)}> Delete</button>
-          <button onClick={() => statusTodo(item.id)}> Close/Open</button>
-          <button onClick={() => editTodo(item.id)}> Edit</button>
+          {edit === item.id ? (
+            <div>
+              <button onClick={() => saveTodo(item.id)}>Save</button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => deleteTodo(item.id)}> Delete</button>
+              <button onClick={() => statusTodo(item.id)}> Close/Open</button>
+              <button onClick={() => editTodo(item.id, item.title)}>
+                Edit
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>
