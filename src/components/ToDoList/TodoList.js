@@ -47,7 +47,6 @@ export const TodoList = (props) => {
   const editTodo = (id, title) => {
     setEdit(id); // Записываем в edit наш Id
     setValue(title);
-    console.log(edit);
   };
 
   const todoFilter = (status) => {
