@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, ButtonGroup, Col, Form, Row } from 'react-bootstrap';
 import css from './TodoList.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,6 +13,10 @@ import {
 export const TodoList = (props) => {
   const [edit, setEdit] = useState(null);
   const [value, setValue] = useState('');
+  const [filter, setFilter] = useState(props.todo);
+  useEffect(() => {
+    setFilter(props.todo);
+  }, [props.todo]);
 
   const deleteTodo = (id) => {
     let newTodo = [...props.todo].filter((item) => item.id !== id);
@@ -41,14 +45,39 @@ export const TodoList = (props) => {
   };
 
   const editTodo = (id, title) => {
-    setEdit(id);
+    setEdit(id); // Записываем в edit наш Id
     setValue(title);
     console.log(edit);
   };
 
+  const todoFilter = (status) => {
+    if (status === 'all') {
+      setFilter(props.todo);
+    } else {
+      let newTodo = [...props.todo].filter((item) => item.status === status);
+      setFilter(newTodo);
+    }
+  };
+
   return (
     <div>
-      {props.todo.map((item) => (
+      <Row>
+        <Col className={css.filter}>
+          <ButtonGroup className={css.btns} aria-label='Basic example'>
+            <Button onClick={() => todoFilter('all')} size='sm'>
+              All
+            </Button>
+            <Button onClick={() => todoFilter(true)} size='sm'>
+              Open
+            </Button>
+            <Button onClick={() => todoFilter(false)} size='sm'>
+              Close
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
+
+      {filter.map((item) => (
         <div className={css.listItems} key={item.id}>
           {edit === item.id ? (
             <div>

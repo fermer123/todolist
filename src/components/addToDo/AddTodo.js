@@ -6,17 +6,19 @@ export const AddTodo = (props) => {
   const [value, setValue] = useState('');
 
   const saveTodo = () => {
-    return props.setTodo(
-      [
-        ...props.todo,
-        {
-          id: uuidv4(),
-          title: value,
-          status: true,
-        },
-      ],
-      setValue(''),
-    );
+    if (value) {
+      return props.setTodo(
+        [
+          ...props.todo,
+          {
+            id: uuidv4(),
+            title: value,
+            status: true,
+          },
+        ],
+        setValue(''),
+      );
+    }
   };
 
   return (
